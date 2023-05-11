@@ -1,12 +1,12 @@
 // const nodemailer = require("nodemailer");
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SEND_GRID_KEY);
+sgMail.setApiKey(process.env.NEXT_PUBLIC_SEND_GRID_KEY);
 
 // This dynamic function receives subject,text,html,email of the user and
 // is used to send emails to the user on different occasions.
 export const sendEmail = async ({ subject, text, html, email }) => {
   const mailOptions = {
-    from: process.env.SEND_GRID_EMAIL,
+    from: process.env.NEXT_PUBLIC_SEND_GRID_EMAIL,
     to: email,
     subject,
     text,
@@ -25,8 +25,8 @@ export const sendEmail = async ({ subject, text, html, email }) => {
   //   service: "gmail",
   //   secure: true,
   //   auth: {
-  //     user: process.env.NODE_MAILER_EMAIL,
-  //     pass: process.env.NODE_MAILER_PASSWORD,
+  //     user: process.env.NEXT_PUBLIC_NODE_MAILER_EMAIL,
+  //     pass: process.env.NEXT_PUBLIC_MAILER_PASSWORD,
   //   },
   //   tls: {rejectUnauthorized: false}
   // });
