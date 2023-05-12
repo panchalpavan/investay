@@ -15,7 +15,11 @@ const s3 = new S3({
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+      cb(null, "");
+    } else {
+      cb(null, "public/uploads/");
+    }
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + file.originalname);
@@ -24,10 +28,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
+console.log("HERE")
 const addProperty = async (req, res) => {
-  console.log('REQ METHOD', req.method)
   upload.any()(req, res, async (err) => {
+  console.log('REQ METHOD', req.method, req.body, req.files) 
   if (err instanceof multer.MulterError) {
       return res.status(400).send("File upload error: " + err.message);
     } else if (err) {
