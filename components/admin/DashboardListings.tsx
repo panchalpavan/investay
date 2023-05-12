@@ -9,13 +9,77 @@ import { deleteProperty } from '../../action-creators/properties/deleteProperty'
 import { DeleteIcon } from '../SVGComponents/Admin/DeleteIcon'
 import { UserCircle } from '../SVGComponents/Admin/UserCircle'
 import { DownArrow } from '../SVGComponents/DownArrow'
+import S3 from "aws-sdk/clients/s3";
+import { Buffer } from 'buffer';
 
 const DashboardListings = ({ allProperties }: any) => {
+    const s3 = new S3({
+        apiVersion: '2006-03-01',
+        accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESSKEY,
+        secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRETKEY,
+        region: process.env.NEXT_PUBLIC_AWS_REGION,
+        signatureVersion: 'v4'
+    });
+
     const router = useRouter()
     const [availedServiceOptionsShow, setAvailedServiceOptionsShow] = useState(false)
     const [propertyStatusOptionsShow, setPropertyStatusOptionsShow] = useState(false)
     const [approvalStatusOptionsShow, setApprovalStatusOptionsShow] = useState(false)
     const [properties, setProperties] = useState([]) as any
+    const [imageUrls, setImageUrls] = useState([]);
+
+    console.log(imageUrls)
+
+    const getImage = async (img: any) => {
+        const src = await downloadFromS3(img)
+        console.log("SRC", src)
+        return src
+    }
+
+    const getFirstImageUrl = async (property: any) => {
+        const gallery = property?.gallery || [];
+        if (gallery.length > 0) {
+          const src = await downloadFromS3(gallery[0]);
+          return src || "";
+        } else {
+          return "";
+        }
+      };
+
+    if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+
+        useEffect(() => {
+            const downloadImages = async () => {
+              const promises = properties.map(async (property: any) => {
+                const url = await getFirstImageUrl(property);
+                return url;
+              });
+              const urls = await Promise.all(promises);
+              setImageUrls(urls);
+            };
+            downloadImages();
+          }, [properties]);
+    }
+
+    async function downloadFromS3(attachmentId: any) {
+        console.log(attachmentId);
+        console.log(process.env.NEXT_PUBLIC_AWS_BUCKETNAME);
+        const s3Params = {
+          Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME || "",
+          Key: attachmentId,
+        };
+      
+        try {
+          const file = await s3.getObject(s3Params).promise();
+          const dataURI = `data:image/png;base64,${Buffer.from(file.Body).toString('base64')}`;
+          console.log(dataURI);
+          return dataURI;
+        } catch (error) {
+          return null;
+        }
+      }
+
+
     const getAllProperty = () => {
         setProperties(allProperties)
     }
@@ -202,6 +266,7 @@ const DashboardListings = ({ allProperties }: any) => {
 
                 </div>
                 {properties && properties?.map((property: any, index: any) => {
+                    console.log(property)
                     return (
                         <div key={index} className={property?.propertyActivateStatus && property?.propertyActivateStatus === 'deactivated'
                         ? `xl:col-span-4 md:col-span-6  col-span-12 h-full p-6 mx-3 shadow-lg flex flex-col rounded-lg overflow-hidden`
@@ -265,12 +330,21 @@ const DashboardListings = ({ allProperties }: any) => {
                                
                                 <Link href={`/admin/property-overview/${property?._id}`}>
                                     <div className="w-full h-full flex justify-center cursor-pointer items-center rounded-t-lg bg-[#DCDCDC]">
-                                        {property?.gallery[0]?.filename ? (
-                                            <img src={"/uploads/" + property?.gallery[0]?.filename}  alt="Property Image" className="h-full w-full object-fit" />
+                                        {process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? (
+                                            <>
+                                            {property?.gallery[0]?.filename ? (
+                                                <img src={"/uploads/" + property?.gallery[0]?.filename}  alt="Property Image" className="h-full w-full object-fit" />
+                                            ) : (
+                                                <img src={"/assets/images/noimageicon.png"}  alt="No Image" className="h-full w-full object-fit" />
+                                                
+                                            )}
+                                            </>
                                         ) : (
-                                            <img src={"/assets/images/noimageicon.png"}  alt="No Image" className="h-full w-full object-fit" />
-                                            
+                                            <>
+                                                <img src={imageUrls[index]}  alt="No Image" className="h-full w-full object-fit" />
+                                            </>
                                         )}
+
 
                                     </div>
                                 </Link>

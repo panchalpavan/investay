@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import { setLocations, setProperty, set_getProperties } from "../../redux/property/propertyReducer";
 import { addProperty } from "../../action-creators/properties/addProperty";
 import axios from "axios";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 const BookingPricing = () => {
   const url =
@@ -85,55 +86,86 @@ const BookingPricing = () => {
     const { uploadUrl, key } = data;
     await axios.put(uploadUrl, file)
     .then((req) => {
-      console.log(req)
+      console.log('AWS SUCCESS', req)
     })
     .catch((err) => {
-      console.log(err)
+      console.log('AWS ERR', err)
     });
     return key;
+  }
+
+  async function uploadToS3AndAppendToFormData(data: any, formData: any) {
+    if (data.onlineRegistrationForm) {
+      const awskey = await uploadToS3(data.onlineRegistrationForm)
+      formData.append("onlineRegistrationForm", awskey)
+    }
+    if (data.resaleForm) {
+      const awskey = await uploadToS3(data.resaleForm)
+      formData.append("resaleForm", awskey)
+    }
+    if (data.rentalForm) {
+      const awskey = await uploadToS3(data.rentalForm)
+      formData.append("rentalForm", awskey)
+    }
+    if (data.rentalAgreement) {
+      const awskey = await uploadToS3(data.rentalAgreement)
+      formData.append("rentalAgreement", awskey)
+    }
+    if (data.propertyInspectionReport) {
+      const awskey = await uploadToS3(data.propertyInspectionReport)
+      formData.append("propertyInspectionReport", awskey)
+    }
+    if (data.mou) {
+      const awskey = await uploadToS3(data.mou)
+      formData.append("mou", awskey)
+    }
   }
 
   const onSubmitHandler = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     try {
+      let imgs: any = []
+
       console.log("PROPERTY", property)
       const data = { ...property, bookingPricing };
+      console.log(data)
       const formData = new FormData();
+
+      if (data.gallery) {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+          data?.gallery.map(async (img: any) => {
+            formData.append("gallery", img)
+          })
+        } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+          await Promise.all(
+            data?.gallery.map(async (img: any) => {
+              const key = await uploadToS3(img)
+              console.log("KEY", key)
+              if (key) imgs.push(key)
+            })
+          )
+          formData.append("gallery", imgs)
+        }
+      }
+      if (data.documents) {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+          for (const [subKey, subValue] of Object.entries(data.documents)) {
+            if (subValue) {
+                // @ts-ignore
+                formData.append(`${subKey}`, subValue);
+            }
+          }
+        } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+          await uploadToS3AndAppendToFormData(data.documents, formData)
+        }
+      } 
       Object.keys(data).map(async (key) => {
         // console.log(key, data[key])
         if (typeof data[key] === "object" && key !== "gallery" && key !== "documents") {
           // console.log(typeof data["amenities"]);
           formData.append(key,JSON.stringify( data[key]))
-        }else if (key === "gallery") {
-          if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
-            data[key].map(async (img: any) => {
-              formData.append("gallery", img)
-            })
-          } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-            let imgs: any = []
-            data[key].map(async (img: any) => {
-              const key = await uploadToS3(img)
-              imgs.push(key)
-            })
-            formData.append("gallery", imgs)
-          }
-        } else if (key === "documents") {
-          if (typeof data[key] === 'object' && data[key] !== null) {
-            for (const [subKey, subValue] of Object.entries(data[key])) {
-              if (subValue) {
-                if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
-                  // @ts-ignore
-                  formData.append(`${subKey}`, subValue);
-                } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-                  const key = await uploadToS3(subValue)
-                  formData.append(`${subKey}`, key);
-
-                }
-              }
-            }
-          }
-        } else{
+        } else {
           formData.append(key, data[key])
         }
       })
@@ -141,6 +173,7 @@ const BookingPricing = () => {
       for (let pair of formData.entries()) {
         console.log(pair[0]+ ': ' + pair[1]); 
       }
+
       const response = await addProperty(formData);
       if (response.success) {
         setLoading(false);

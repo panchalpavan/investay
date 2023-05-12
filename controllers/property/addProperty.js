@@ -43,34 +43,44 @@ const addProperty = (req, res) => {
           let propertyInspectionReport = ""
           let mou = ""
 
-          const registrationForms = req.files.filter(file => file.fieldname === 'onlineRegistrationForm');
-          if (registrationForms.length > 0) {
-            onlineRegistrationForm = registrationForms[0].filename;
-          }
+          if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+            onlineRegistrationForm = req.body.onlineRegistrationForm
+            resaleForm = req.body.resaleForm
+            rentalForm = req.body.rentalForm
+            rentalAgreement = req.body.rentalAgreement
+            propertyInspectionReport = req.body.propertyInspectionReport
+            mou = req.body.mou
 
-          const resaleForms = req.files.filter(file => file.fieldname === 'resaleForm');
-          if (resaleForms.length > 0) {
-            resaleForm = resaleForms[0].filename;
-          }
-
-          const rentalForms = req.files.filter(file => file.fieldname === 'rentalForm');
-          if (rentalForms.length > 0) {
-            rentalForm = rentalForms[0].filename;
-          }
-
-          const rentalAgreements = req.files.filter(file => file.fieldname === 'rentalAgreement');
-          if (rentalAgreements.length > 0) {
-            rentalAgreement = rentalAgreements[0].filename;
-          }
-
-          const propertyInspectionReports = req.files.filter(file => file.fieldname === 'propertyInspectionReport');
-          if (propertyInspectionReports.length > 0) {
-            propertyInspectionReport = propertyInspectionReports[0].filename;
-          }
-
-          const mous = req.files.filter(file => file.fieldname === 'mou');
-          if (mous.length > 0) {
-            mou = mous[0].filename;
+          } else if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+              const registrationForms = req.files.filter(file => file.fieldname === 'onlineRegistrationForm');
+              if (registrationForms.length > 0) {
+                onlineRegistrationForm = registrationForms[0].filename;
+              }
+    
+              const resaleForms = req.files.filter(file => file.fieldname === 'resaleForm');
+              if (resaleForms.length > 0) {
+                resaleForm = resaleForms[0].filename;
+              }
+    
+              const rentalForms = req.files.filter(file => file.fieldname === 'rentalForm');
+              if (rentalForms.length > 0) {
+                rentalForm = rentalForms[0].filename;
+              }
+    
+              const rentalAgreements = req.files.filter(file => file.fieldname === 'rentalAgreement');
+              if (rentalAgreements.length > 0) {
+                rentalAgreement = rentalAgreements[0].filename;
+              }
+    
+              const propertyInspectionReports = req.files.filter(file => file.fieldname === 'propertyInspectionReport');
+              if (propertyInspectionReports.length > 0) {
+                propertyInspectionReport = propertyInspectionReports[0].filename;
+              }
+    
+              const mous = req.files.filter(file => file.fieldname === 'mou');
+              if (mous.length > 0) {
+                mou = mous[0].filename;
+              }
           }
 
           await Property.create({
@@ -81,7 +91,10 @@ const addProperty = (req, res) => {
             ownerContact: ownerContact,
             amenities: amenity,
             bookingPricing: booking,
-            gallery:req.files.filter(file => file.fieldname === 'gallery'),
+            gallery: process.env.NEXT_PUBLIC_NODE_ENV === "development"
+            ? req.files.filter(file => file.fieldname === 'gallery')
+            : process.env.NEXT_PUBLIC_NODE_ENV === "production" ? req.body.gallery
+            : [],
             documents: {
               onlineRegistrationForm: onlineRegistrationForm,
               resaleForm: resaleForm,
