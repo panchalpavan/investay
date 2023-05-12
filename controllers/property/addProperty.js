@@ -28,7 +28,7 @@ const addProperty = (req, res) => {
         let success = false;
         try {
           const userId = req.user.id;
-          let userDetails = await User.findOne({ id: userId });
+          let userDetails = await User.findOne({ _id: userId });
           const ownerName = userDetails && `${userDetails.firstName} ${userDetails.lastName}`
           const ownerContact = userDetails && userDetails.mobile
           const { propertyLocation, amenities, bookingPricing } = req.body;
