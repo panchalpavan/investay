@@ -22,7 +22,7 @@ const addProperty = (req, res) => {
   if (err instanceof multer.MulterError) {
       return res.status(400).send("File upload error: " + err.message);
     } else if (err) {
-      return res.status(500).send("Internal server error");
+      return res.status(500).send("Internal server error", err);
     } else {
       if (req.method === "POST") {
         let success = false;
