@@ -1,8 +1,17 @@
 // Controller for adding a property. Requires login
 import multer from "multer";
+import S3 from 'aws-sdk/clients/s3'
 const Location = require("../../models/Location");
 const Property = require("../../models/Property");
 const User = require("../../models/User");
+
+const s3 = new S3({
+  apiVersion: '2006-03-01',
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESSKEY,
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRETKEY,
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  signatureVersion: 'v4'
+})
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -16,7 +25,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-const addProperty = (req, res) => {
+const addProperty = async (req, res) => {
   console.log('REQ METHOD', req.method)
   upload.any()(req, res, async (err) => {
   if (err instanceof multer.MulterError) {
@@ -46,34 +55,142 @@ const addProperty = (req, res) => {
           let propertyInspectionReport = ""
           let mou = ""
 
+
+
           const registrationForms = req.files.filter(file => file.fieldname === 'onlineRegistrationForm');
           if (registrationForms.length > 0) {
-            onlineRegistrationForm = registrationForms[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: registrationForms[0].filename,
+                Expires: 60,
+                ContentType: registrationForms[0].type && registrationForms[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              resaleForm = uploadURL;
+            } else {
+              resaleForm = registrationForms[0].filename;
+
+            }
           }
 
           const resaleForms = req.files.filter(file => file.fieldname === 'resaleForm');
           if (resaleForms.length > 0) {
-            resaleForm = resaleForms[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: resaleForms[0].filename,
+                Expires: 60,
+                ContentType: resaleForms[0].type && resaleForms[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              resaleForm = uploadURL;
+            } else {
+              resaleForm = resaleForms[0].filename;
+
+            }
           }
 
           const rentalForms = req.files.filter(file => file.fieldname === 'rentalForm');
           if (rentalForms.length > 0) {
-            rentalForm = rentalForms[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: rentalForms[0].filename,
+                Expires: 60,
+                ContentType: rentalForms[0].type && rentalForms[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              rentalForm = uploadURL;
+            } else {
+              rentalForm = rentalForms[0].filename;
+
+            }
           }
 
           const rentalAgreements = req.files.filter(file => file.fieldname === 'rentalAgreement');
           if (rentalAgreements.length > 0) {
-            rentalAgreement = rentalAgreements[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: rentalAgreements[0].filename,
+                Expires: 60,
+                ContentType: rentalAgreements[0].type && rentalAgreements[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              rentalAgreement = uploadURL;
+            } else {
+              rentalAgreement = rentalAgreements[0].filename;
+
+            }
           }
 
           const propertyInspectionReports = req.files.filter(file => file.fieldname === 'propertyInspectionReport');
           if (propertyInspectionReports.length > 0) {
-            propertyInspectionReport = propertyInspectionReports[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: propertyInspectionReports[0].filename,
+                Expires: 60,
+                ContentType: propertyInspectionReports[0].type && propertyInspectionReports[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              propertyInspectionReport = uploadURL;
+            } else {
+              propertyInspectionReport = propertyInspectionReports[0].filename;
+
+            }
           }
+
 
           const mous = req.files.filter(file => file.fieldname === 'mou');
           if (mous.length > 0) {
-            mou = mous[0].filename;
+            if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+              const s3Params = {
+                Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                Key: mous[0].filename,
+                Expires: 60,
+                ContentType: mous[0].type && mous[0].name.endsWith('.pdf') ? 'application/pdf' : 'image/*'
+              }
+
+              const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+              console.log('UPLOAD URL', uploadURL)
+              mou = uploadURL;
+            } else {
+              mou = mous[0].filename;
+            }
+          }
+
+          const galleries = req.files.filter(file => file.fieldname === 'gallery');
+
+          if (galleries.length > 0) {
+            galleries.map(async (val) => {
+              if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+                const s3Params = {
+                  Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+                  Key: val.filename,
+                  Expires: 60,
+                  ContentType: 'image/*'
+                }
+  
+                const uploadURL = await s3.getSignedUrl(('putObject', s3Params))
+                console.log('UPLOAD URL', uploadURL)
+                return newVal = {
+                  ...val,
+                  filename: uploadURL
+                }
+              }
+            })
           }
 
           await Property.create({
@@ -84,7 +201,7 @@ const addProperty = (req, res) => {
             ownerContact: ownerContact,
             amenities: amenity,
             bookingPricing: booking,
-            gallery:req.files.filter(file => file.fieldname === 'gallery'),
+            gallery: galleries,
             documents: {
               onlineRegistrationForm: onlineRegistrationForm,
               resaleForm: resaleForm,
