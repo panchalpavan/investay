@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Fragment } from "react";
 import { Listbox } from "@headlessui/react";
@@ -86,7 +86,10 @@ const Details = () => {
     mou: "",
   });
 
-  console.log('documents', documents)
+  useEffect(() => {
+    console.log('documents', documents)
+    console.log('galleries', gallery)
+  }, [gallery, documents])
 
   const [unitDetails, setUnitDetails] = useState({
     noOfOwners: 1,
@@ -1838,7 +1841,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"  onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery" accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1848,7 +1851,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1858,7 +1861,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1868,7 +1871,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1878,7 +1881,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1889,7 +1892,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1900,7 +1903,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1911,7 +1914,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1922,7 +1925,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1933,7 +1936,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1943,7 +1946,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1953,7 +1956,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1963,7 +1966,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1974,7 +1977,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1985,7 +1988,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -1996,7 +1999,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2007,7 +2010,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2018,7 +2021,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2036,7 +2039,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2046,7 +2049,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2056,7 +2059,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2066,7 +2069,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2077,7 +2080,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -2088,7 +2091,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" onChange={handleGalleryMenuChange} className="hidden" />
+                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">
@@ -3446,11 +3449,11 @@ const Details = () => {
                   </p>
                   <div className="mt-2">
                     <label
-                      htmlFor="inputTag"
+                      htmlFor="onlineRegistrationForm"
                       className="px-8 py-1 text-gray-600  bg-primaryColor rounded-2xl"
                     >
                       Upload
-                      <input id="inputTag" type="file" name="onlineRegistrationForm" accept=".jpg,.jpeg,.png,.pdf"  onChange={handlePropertyDocsChange} className="hidden " />
+                      <input type="file" id="onlineRegistrationForm" name="onlineRegistrationForm" accept="application/pdf"  onChange={handlePropertyDocsChange} className="hidden " />
                     </label>
                   </div>
                 </div>
@@ -3460,52 +3463,52 @@ const Details = () => {
                   </p>
                   <div className="mt-2">
                     <label
-                      htmlFor="inputTag"
+                      htmlFor="resaleForm"
                       className="px-8 py-1 text-gray-600  bg-primaryColor rounded-2xl"
                     >
                       Upload
-                      <input id="inputTag" type="file" name="resaleForm" accept=".jpg,.jpeg,.png,.pdf"  onChange={handlePropertyDocsChange} className="hidden" />
+                      <input type="file" id="resaleForm" name="resaleForm" accept="application/pdf"  onChange={handlePropertyDocsChange} className="hidden" />
                     </label>
                   </div>
                 </div>
                 <div className="md:col-span-4  xxs:col-span-6  col-span-12">
-                  <p className="text-base   text-secondaryLightColor">
+                  <p className="text-base text-secondaryLightColor">
                     {" "}
                     Rental Agreement{" "}
                   </p>
                   <div className="mt-2">
                     <label
-                      htmlFor="inputTag"
+                      htmlFor="rentalAgreement"
                       className="px-8 py-1 text-gray-600  bg-primaryColor rounded-2xl"
                     >
                       Upload
-                      <input id="inputTag" type="file"  name="rentalAgreement" accept=".jpg,.jpeg,.png,.pdf"  onChange={handlePropertyDocsChange} className="hidden " />
+                      <input type="file" id="rentalAgreement" name="rentalAgreement" accept="application/pdf"  onChange={handlePropertyDocsChange} className="hidden " />
                     </label>
                   </div>
                 </div>
                 <div className="md:col-span-4  xxs:col-span-6  col-span-12">
-                  <p className="text-base   text-secondaryLightColor">
+                  <p className="text-base text-secondaryLightColor">
                     Property Inspection Report{" "}
                   </p>
                   <div className="mt-2">
                     <label
-                      htmlFor="inputTag"
+                      htmlFor="propertyInspectionReport"
                       className="px-8 py-1 text-gray-600  bg-primaryColor rounded-2xl"
                     >
                       Upload
-                      <input id="inputTag" type="file"  name="propertyInspectionReport" accept=".jpg,.jpeg,.png,.pdf"  onChange={handlePropertyDocsChange} className="hidden " />
+                      <input type="file" id="propertyInspectionReport"  name="propertyInspectionReport" accept="application/pdf"  onChange={handlePropertyDocsChange} className="hidden " />
                     </label>
                   </div>
                 </div>
                 <div className="md:col-span-4  xxs:col-span-6  col-span-12">
-                  <p className="text-base   text-secondaryLightColor">MOU </p>
+                  <p className="text-base text-secondaryLightColor">MOU</p>
                   <div className="mt-2">
                     <label
-                      htmlFor="inputTag"
+                      htmlFor="mou"
                       className="px-8 py-1 text-gray-600  bg-primaryColor rounded-2xl"
                     >
                       Upload
-                      <input id="inputTag" type="file"  name="mou" accept=".jpg,.jpeg,.png,.pdf"  onChange={handlePropertyDocsChange} className="hidden " />
+                      <input type="file" id="mou" name="mou" accept="application/pdf"  onChange={handlePropertyDocsChange} className="hidden " />
                     </label>
                   </div>
                 </div>

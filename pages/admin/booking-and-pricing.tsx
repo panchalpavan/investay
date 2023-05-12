@@ -21,8 +21,14 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { toast } from "react-toastify";
 import { setLocations, setProperty, set_getProperties } from "../../redux/property/propertyReducer";
 import { addProperty } from "../../action-creators/properties/addProperty";
+import axios from "axios";
 
 const BookingPricing = () => {
+  const url =
+  process.env.NEXT_PUBLIC_NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_INVESTAY_LINK_LOCAL
+    : process.env.NEXT_PUBLIC_DATA_API_URL;
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { property } = useSelector((state: any) => {
@@ -69,6 +75,24 @@ const BookingPricing = () => {
     setBookingPricing({ ...bookingPricing, [name]: value });
   };
 
+  const uploadToS3 = async (file: any) => {
+    console.log(file)
+
+    // @ts-ignore
+    const fileType = encodeURIComponent(file.type);
+
+    const { data } = await axios.get(`${url}/api/aws_file_upload?fileType=${fileType}`);
+    const { uploadUrl, key } = data;
+    await axios.put(uploadUrl, file)
+    .then((req) => {
+      console.log(req)
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+    return key;
+  }
+
   const onSubmitHandler = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -76,30 +100,47 @@ const BookingPricing = () => {
       console.log("PROPERTY", property)
       const data = { ...property, bookingPricing };
       const formData = new FormData();
-      Object.keys(data).map((key) => {
+      Object.keys(data).map(async (key) => {
         // console.log(key, data[key])
         if (typeof data[key] === "object" && key !== "gallery" && key !== "documents") {
           // console.log(typeof data["amenities"]);
           formData.append(key,JSON.stringify( data[key]))
         }else if (key === "gallery") {
-          data[key].map((img: any) => {
-            formData.append("gallery", img)
-          })
-        }else if (key === "documents"){
-          console.log("HERE")
+          if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+            data[key].map(async (img: any) => {
+              formData.append("gallery", img)
+            })
+          } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+            let imgs: any = []
+            data[key].map(async (img: any) => {
+              const key = await uploadToS3(img)
+              imgs.push(key)
+            })
+            formData.append("gallery", imgs)
+          }
+        } else if (key === "documents") {
           if (typeof data[key] === 'object' && data[key] !== null) {
-            console.log("HERE2")
             for (const [subKey, subValue] of Object.entries(data[key])) {
-              formData.append(`${subKey}`, subValue);
+              if (subValue) {
+                if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+                  // @ts-ignore
+                  formData.append(`${subKey}`, subValue);
+                } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+                  const key = await uploadToS3(subValue)
+                  formData.append(`${subKey}`, key);
+
+                }
+              }
             }
           }
-        }else{
+        } else{
           formData.append(key, data[key])
         }
       })
-      // for (let pair of formData.entries()) {
-      //   console.log(pair[0]+ ': ' + pair[1]); 
-      // }
+      // @ts-ignore
+      for (let pair of formData.entries()) {
+        console.log(pair[0]+ ': ' + pair[1]); 
+      }
       const response = await addProperty(formData);
       if (response.success) {
         setLoading(false);
