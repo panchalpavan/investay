@@ -6,7 +6,7 @@ const MongoURI = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? process.env
 // This function is used to establish connection to mongodb
 const connectToMongo = async () => {
   try {
-    console.log(MongoURI)
+    console.log('MONGO URI', MongoURI)
     await mongoose.connect(MongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
