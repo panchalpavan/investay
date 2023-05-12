@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 // const NEXT_PUBLIC_MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI;
-const NEXT_PUBLIC_MONGODB_URI = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? process.env.NEXT_PUBLIC_MONGODB_URI : "mongodb://127.0.0.1:27017/investay";
+const MongoURI = process.env.NEXT_PUBLIC_NODE_ENV === "production" ? process.env.NEXT_PUBLIC_MONGODB_URI : "mongodb://127.0.0.1:27017/investay";
 
 // This function is used to establish connection to mongodb
 const connectToMongo = async () => {
   try {
-    console.log(NEXT_PUBLIC_MONGODB_URI)
-    await mongoose.connect(NEXT_PUBLIC_MONGODB_URI, {
+    console.log(MongoURI)
+    await mongoose.connect(MongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
