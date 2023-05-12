@@ -73,7 +73,7 @@ const BookingPricing = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log("PROPERTYWEW", property)
+      console.log("PROPERTY", property)
       const data = { ...property, bookingPricing };
       const formData = new FormData();
       Object.keys(data).map((key) => {
@@ -97,9 +97,9 @@ const BookingPricing = () => {
           formData.append(key, data[key])
         }
       })
-      for (let pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]); 
-      }
+      // for (let pair of formData.entries()) {
+      //   console.log(pair[0]+ ': ' + pair[1]); 
+      // }
       const response = await addProperty(formData);
       if (response.success) {
         setLoading(false);
