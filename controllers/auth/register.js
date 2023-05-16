@@ -4,7 +4,7 @@ const connectToMongo = require("../../db");
 const Token = require("../../models/Token");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
-const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
 const schema = joi.object({
   otp: joi.string().length(4).required().messages({

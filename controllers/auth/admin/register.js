@@ -2,7 +2,7 @@ const { setCookie } = require("cookies-next");
 const joi = require("joi");
 const connectToMongo = require("../../../db");
 const jwt = require("jsonwebtoken");
-const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 const bcrypt = require("bcryptjs");
 const User = require("../../../models/User");
 

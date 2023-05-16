@@ -27,7 +27,7 @@ const BookingPricing = () => {
   const url =
   process.env.NEXT_PUBLIC_NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_INVESTAY_LINK_LOCAL
-    : process.env.NEXT_PUBLIC_DATA_API_URL;
+    : process.env.NEXT_PUBLIC_INVESTAY_LINK_PROD;
   const router = useRouter();
   const dispatch = useDispatch();
   const { property } = useSelector((state: any) => {

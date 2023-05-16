@@ -5,7 +5,7 @@ const connectToMongo = require("../../db");
 const Token = require("../../models/Token");
 const User = require("../../models/User");
 
-const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
 const verifyOtp = async (req, res) => {
   if (req.method === "POST") {

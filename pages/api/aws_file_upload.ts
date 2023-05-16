@@ -5,9 +5,9 @@ import { randomUUID } from "crypto";
 
 const s3 = new S3({
     apiVersion: '2006-03-01',
-    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESSKEY,
-    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRETKEY,
-    region: process.env.NEXT_PUBLIC_AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESSKEY,
+    secretAccessKey: process.env.AWS_SECRETKEY,
+    region: process.env.AWS_REGION,
     signatureVersion: 'v4'
 });
 
@@ -21,7 +21,7 @@ export default async function handler(
   const Key = `${randomUUID()}.${ex}`;
 
   const s3Params = {
-    Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME,
+    Bucket: process.env.AWS_BUCKETNAME,
     Key,
     Expires: 60,
     ContentType: ex === 'pdf' ? `application/${ex}` : `image/${ex}`,
