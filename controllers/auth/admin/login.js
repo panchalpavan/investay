@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secret = process.env.JWT_SECRET;
+const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 const connectToMongo = require("../../../db");
 import { setCookie } from "cookies-next";
 
