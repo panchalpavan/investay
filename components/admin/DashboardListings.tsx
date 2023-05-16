@@ -28,18 +28,15 @@ const DashboardListings = ({ allProperties }: any) => {
     const [properties, setProperties] = useState([]) as any
     const [imageUrls, setImageUrls] = useState([]);
 
+    console.log("PROPERTIES", properties)
+
     console.log(imageUrls)
 
-    const getImage = async (img: any) => {
-        const src = await downloadFromS3(img)
-        console.log("SRC", src)
-        return src
-    }
+    const getImageUrl = async (gallery: any) => {
 
-    const getFirstImageUrl = async (property: any) => {
-        const gallery = property?.gallery || [];
-        if (gallery.length > 0) {
-          const src = await downloadFromS3(gallery[0]);
+        console.log(gallery)
+        if (gallery) {
+          const src = await downloadFromS3(gallery?.property?.floor_plan);
           return src || "";
         } else {
           return "";
@@ -51,7 +48,7 @@ const DashboardListings = ({ allProperties }: any) => {
         useEffect(() => {
             const downloadImages = async () => {
               const promises = properties.map(async (property: any) => {
-                const url = await getFirstImageUrl(property);
+                const url = await getImageUrl(property?.gallery);
                 return url;
               });
               const urls = await Promise.all(promises);
@@ -355,7 +352,7 @@ const DashboardListings = ({ allProperties }: any) => {
                                 <div className="px-2 lg1:px-4 mt-2 flex items-start justify-between">
                                     <div className="flex gap-x-4">
                                         <div className="space-y-2">
-                                            <div className="text-xl font-bold">{property?.cpName}</div>
+                                            <div className="text-xl font-bold">{property?.projectName}</div>
                                             <span className="text-sm "> {property?.propertyAddress}  </span>
                                         </div>
                                     </div>

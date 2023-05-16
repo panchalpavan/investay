@@ -21,8 +21,13 @@ import { FiChevronDown } from "react-icons/fi";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { toast } from "react-toastify";
 import { setLocations, setProperty, set_getProperties } from "../../../redux/property/propertyReducer";
+import axios from "axios";
 
 const BookingPricing = () => {
+  const url =
+  process.env.NEXT_PUBLIC_NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_INVESTAY_LINK_LOCAL
+    : process.env.NEXT_PUBLIC_DATA_API_URL;
   const router = useRouter();
   const dispatch = useDispatch();
   const { property } = useSelector((state: any) => {
@@ -70,6 +75,51 @@ const BookingPricing = () => {
     setBookingPricing({ ...bookingPricing, [name]: value });
   };
 
+  const uploadToS3 = async (file: any) => {
+    console.log(file)
+
+    // @ts-ignore
+    const fileType = encodeURIComponent(file.type);
+
+    const { data } = await axios.get(`${url}/api/aws_file_upload?fileType=${fileType}`);
+    const { uploadUrl, key } = data;
+    await axios.put(uploadUrl, file)
+    .then((req) => {
+      console.log('AWS SUCCESS', req)
+    })
+    .catch((err) => {
+      console.log('AWS ERR', err)
+    });
+    return key;
+  }
+
+  async function uploadToS3AndAppendToFormData(data: any, formData: any) {
+    if (data.onlineRegistrationForm) {
+      const awskey = await uploadToS3(data.onlineRegistrationForm)
+      formData.append("onlineRegistrationForm", awskey)
+    }
+    if (data.resaleForm) {
+      const awskey = await uploadToS3(data.resaleForm)
+      formData.append("resaleForm", awskey)
+    }
+    if (data.rentalForm) {
+      const awskey = await uploadToS3(data.rentalForm)
+      formData.append("rentalForm", awskey)
+    }
+    if (data.rentalAgreement) {
+      const awskey = await uploadToS3(data.rentalAgreement)
+      formData.append("rentalAgreement", awskey)
+    }
+    if (data.propertyInspectionReport) {
+      const awskey = await uploadToS3(data.propertyInspectionReport)
+      formData.append("propertyInspectionReport", awskey)
+    }
+    if (data.mou) {
+      const awskey = await uploadToS3(data.mou)
+      formData.append("mou", awskey)
+    }
+  }
+
   const onSubmitHandler = async (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -77,15 +127,74 @@ const BookingPricing = () => {
       const data = { ...property, bookingPricing };
       // console.log(Object.keys(data));
       const formData = new FormData();
+      if (data.gallery) {
+        console.log(data.gallery)
+        if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+
+          // this will not work for development environment
+          let galleryObj = {...data.gallery};
+          for (const [key, value] of Object.entries(data.gallery)) {
+            if (value) {
+              for (const [subKey, subValue] of Object.entries(value)) {
+                if (subValue) {
+                  const awskey = await uploadToS3(subValue)
+                  if (awskey) {
+                    galleryObj = {...galleryObj, [key]: {...galleryObj[key], [subKey]: awskey}}
+                  }
+                }
+              }
+            }
+          }
+          formData.set('property', JSON.stringify(galleryObj.property));
+          formData.set('society', JSON.stringify(galleryObj.society));
+          formData.set('user_images', JSON.stringify(galleryObj.user_images));
+        } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+          // gallery array logic
+          // await Promise.all(
+          //   data?.gallery.map(async (img: any) => {
+          //     const key = await uploadToS3(img)
+          //     console.log("KEY", key)
+          //     if (key) imgs.push(key)
+          //   })
+          // )
+          // formData.append("gallery", imgs)
+
+          // gallery defined object logic
+          let galleryObj = {...data.gallery};
+          for (const [key, value] of Object.entries(data.gallery)) {
+            if (value) {
+              for (const [subKey, subValue] of Object.entries(value)) {
+                if (subValue) {
+                  const awskey = await uploadToS3(subValue)
+                  if (awskey) {
+                    galleryObj = {...galleryObj, [key]: {...galleryObj[key], [subKey]: awskey}}
+                  }
+                }
+              }
+            }
+          }
+          formData.set('property', JSON.stringify(galleryObj.property));
+          formData.set('society', JSON.stringify(galleryObj.society));
+          formData.set('user_images', JSON.stringify(galleryObj.user_images));
+        }
+      }
+      if (data.documents) {
+        if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
+          for (const [subKey, subValue] of Object.entries(data.documents)) {
+            if (subValue) {
+                // @ts-ignore
+                formData.append(`${subKey}`, subValue);
+            }
+          }
+        } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+          await uploadToS3AndAppendToFormData(data.documents, formData)
+        }
+      } 
       Object.keys(data).map((key) => {
-        if (typeof data[key] === "object" && key !== "gallery" ) {
+        if (typeof data[key] === "object" && key !== "gallery" && key !== "documents") {
           // console.log(typeof data["amenities"]);
-          formData.append(key,JSON.stringify( data[key]))
-        }else if (key === "gallery") {
-          data[key].map((img: any) => {
-            formData.append("gallery", img)
-          })
-        }else{
+          formData.append(key, JSON.stringify(data[key]))
+        } else{
           formData.append(key, data[key])
         }
       })

@@ -125,27 +125,60 @@ const BookingPricing = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      let imgs: any = []
-
       console.log("PROPERTY", property)
       const data = { ...property, bookingPricing };
-      console.log(data)
+
       const formData = new FormData();
 
       if (data.gallery) {
+        console.log(data.gallery)
         if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
-          data?.gallery.map(async (img: any) => {
-            formData.append("gallery", img)
-          })
+
+          // this will not work for development environment
+          let galleryObj = {...data.gallery};
+          for (const [key, value] of Object.entries(data.gallery)) {
+            if (value) {
+              for (const [subKey, subValue] of Object.entries(value)) {
+                if (subValue) {
+                  const awskey = await uploadToS3(subValue)
+                  if (awskey) {
+                    galleryObj = {...galleryObj, [key]: {...galleryObj[key], [subKey]: awskey}}
+                  }
+                }
+              }
+            }
+          }
+          formData.set('property', JSON.stringify(galleryObj.property));
+          formData.set('society', JSON.stringify(galleryObj.society));
+          formData.set('user_images', JSON.stringify(galleryObj.user_images));
         } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-          await Promise.all(
-            data?.gallery.map(async (img: any) => {
-              const key = await uploadToS3(img)
-              console.log("KEY", key)
-              if (key) imgs.push(key)
-            })
-          )
-          formData.append("gallery", imgs)
+          // gallery array logic
+          // await Promise.all(
+          //   data?.gallery.map(async (img: any) => {
+          //     const key = await uploadToS3(img)
+          //     console.log("KEY", key)
+          //     if (key) imgs.push(key)
+          //   })
+          // )
+          // formData.append("gallery", imgs)
+
+          // gallery defined object logic
+          let galleryObj = {...data.gallery};
+          for (const [key, value] of Object.entries(data.gallery)) {
+            if (value) {
+              for (const [subKey, subValue] of Object.entries(value)) {
+                if (subValue) {
+                  const awskey = await uploadToS3(subValue)
+                  if (awskey) {
+                    galleryObj = {...galleryObj, [key]: {...galleryObj[key], [subKey]: awskey}}
+                  }
+                }
+              }
+            }
+          }
+          formData.set('property', JSON.stringify(galleryObj.property));
+          formData.set('society', JSON.stringify(galleryObj.society));
+          formData.set('user_images', JSON.stringify(galleryObj.user_images));
         }
       }
       if (data.documents) {
@@ -163,17 +196,15 @@ const BookingPricing = () => {
       Object.keys(data).map(async (key) => {
         // console.log(key, data[key])
         if (typeof data[key] === "object" && key !== "gallery" && key !== "documents") {
-          // console.log(typeof data["amenities"]);
-          formData.append(key,JSON.stringify( data[key]))
+          formData.append(key, JSON.stringify(data[key]))
         } else {
           formData.append(key, data[key])
         }
       })
       // @ts-ignore
-      for (let pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]); 
-      }
-
+      // for (let pair of formData.entries()) {
+      //   console.log(pair[0]+ ': ' + pair[1]); 
+      // }
       const response = await addProperty(formData);
       if (response.success) {
         setLoading(false);
@@ -195,7 +226,7 @@ const BookingPricing = () => {
         }
       }
     } catch (error: any) {
-      console.log("error: ", error.response.data.error);
+      console.log("error: ", error);
       setLoading(false);
     }
   };

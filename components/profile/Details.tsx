@@ -76,7 +76,173 @@ const Details = () => {
     visitorParking: false,
     brochure: "",
   });
-  const [gallery, setGallery] = useState([]) as any;
+
+
+  const gallery_property_array = [
+    {
+      name: 'floor_plan',
+      title: 'Floor Plan'
+    },
+    {
+      name: 'master_plan',
+      title: 'Master Plan'
+    },
+    {
+      name: 'entrance',
+      title: 'Entrance'
+    },
+
+    {
+      name: 'living_room',
+      title: 'Living Room'
+    },
+    {
+      name: 'bedroom',
+      title: 'Bedroom'
+    },
+    {
+      name: 'closet',
+      title: 'Closet'
+    },
+    {
+      name: 'kitchen',
+      title: 'Kitchen'
+    },
+    {
+      name: 'utility',
+      title: 'Utility'
+    },
+    {
+      name: 'bathroom',
+      title: 'Bathroom'
+    },
+    {
+      name: 'dining',
+      title: 'Dining'
+    },
+    {
+      name: 'terrace_area',
+      title: 'Terrace Area'
+    },
+    {
+      name: 'balcony',
+      title: 'Balcony'
+    },
+    {
+      name: 'pooja',
+      title: 'Pooja'
+    },
+    {
+      name: 'servant_room',
+      title: 'Servant Room'
+    },
+    {
+      name: 'study',
+      title: 'Study'
+    },
+    {
+      name: 'staircase',
+      title: 'Staircase'
+    },
+    {
+      name: 'garden',
+      title: 'Garden'
+    },
+    {
+      name: 'garage',
+      title: 'Garage/Parking'
+    },
+  ]
+  const gallery_society_array = [
+    {
+      name: 'elevation',
+      title: 'Elevation'
+    },
+    {
+      name: 'common_areas',
+      title: 'Common Areas'
+    },
+    {
+      name: 'outdoor_amenities',
+      title: 'Outdoor Amenities'
+    },
+    {
+      name: 'indoor_amenities',
+      title: 'Indoor Amenities'
+    },
+    {
+      name: 'neighbourhood',
+      title: 'Neighbourhood'
+    },
+    {
+      name: 'walkthrough_video',
+      title: 'Walkthrough Video'
+    }
+  ]
+  const [gallery, setGallery] = useState({
+    property: {
+      floor_plan: null,
+      master_plan: null,
+      entrance: null,
+      living_room: null,
+      bedroom: null,
+      closet: null,
+      kitchen: null,
+      utility: null,
+      bathroom: null,
+      dining: null,
+      terrace_area: null,
+      balcony: null,
+      pooja: null,
+      servant_room: null,
+      study: null,
+      staircase: null,
+      garden: null,
+      garage: null
+    },
+    society: {
+      elevation: null,
+      common_areas: null,
+      outdoor_amenities: null,
+      indoor_amenities: null,
+      neighbourhood: null,
+      walkthrough_video: null,
+    },
+    user_images: [],
+  });
+
+  const [gallery_preview, setGalleryPreview] = useState({
+    property: {
+      floor_plan: null,
+      master_plan: null,
+      entrance: null,
+      living_room: null,
+      bedroom: null,
+      closet: null,
+      kitchen: null,
+      utility: null,
+      bathroom: null,
+      dining: null,
+      terrace_area: null,
+      balcony: null,
+      pooja: null,
+      servant_room: null,
+      study: null,
+      staircase: null,
+      garden: null,
+      garage: null
+    },
+    society: {
+      elevation: null,
+      common_areas: null,
+      outdoor_amenities: null,
+      indoor_amenities: null,
+      neighbourhood: null,
+      walkthrough_video: null,
+    },
+    user_images: [],
+  });
+
   const [documents, setDocuments] = useState({
     onlineRegistrationForm: "",
     resaleForm: "",
@@ -85,11 +251,6 @@ const Details = () => {
     propertyInspectionReport: "",
     mou: "",
   });
-
-  useEffect(() => {
-    console.log('documents', documents)
-    console.log('galleries', gallery)
-  }, [gallery, documents])
 
   const [unitDetails, setUnitDetails] = useState({
     noOfOwners: 1,
@@ -201,6 +362,17 @@ const Details = () => {
     nonVegAllowed: false,
   });
 
+  useEffect(() => {
+    console.log('galleries', gallery)
+    console.log('gallery_preview', gallery_preview)
+    // console.log('overview', overview)
+    // console.log('projectDetails', projectDetails)
+    console.log('documents', documents)
+    // console.log('unitDetails', unitDetails)
+    // console.log('amenities', amenities)
+    // console.log('tenancyInformation', tenancyInformation)
+  }, [gallery, documents, unitDetails, amenities, tenancyInformation, overview, projectDetails])
+
   const handleOverviewChange = (e: any) => {
     const { name, value } = e.target;
     setOverview({ ...overview, [name]: value });
@@ -215,9 +387,26 @@ const Details = () => {
     const { name, value } = e.target;
     setUnitDetails({ ...unitDetails, [name]: value });
   };
+  const handleGalleryMenuPropertyChange = (e: any) => {
+    const {name, files} = e.target
+    const image = files[0];
+    const file_name = files[0] && files[0]?.name
+    setGallery({...gallery, property: {...gallery.property, [name]: image}})
+    setGalleryPreview({...gallery_preview, property: {...gallery_preview.property, [name]: file_name}})
+  };
+  const handleGalleryMenuSocietyChange = (e: any) => {
+    const {name, files} = e.target
+    const image = files[0];
+    const file_name = files[0] && files[0]?.name
+    setGallery({...gallery, society: {...gallery.society, [name]: image}})
+    setGalleryPreview({...gallery_preview, society: {...gallery_preview.society, [name]: file_name}})
+  };
   const handleGalleryMenuChange = (e: any) => {
-    const image = e.target.files[0] ;
-    setGallery([...gallery,image])
+    const {name, files} = e.target
+
+    console.log(name, files)
+    const image = files[0];
+    setGallery({...gallery, property: image})
   };
   const handlePropertyDocsChange = (e: any) => {
     console.log(e.target.name, e.target.files)
@@ -1838,266 +2027,50 @@ const Details = () => {
                 <div className="col-span-12 px-2 ">
                   <p className="text-base font-semibold">Gallery Property</p>
                   <div className="flex flex-wrap gap-x-10 gap-y-5 mt-1">
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Floor Plan
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Master Plan
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Entrance
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Living Room
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Bedroom
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Closet
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Kitchen
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Utility
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Bathrooms
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Dining
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Terrace Area
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Balcony
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Pooja
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Servant Room
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Study
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Staircase
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Garden
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Garage/Parking
-                      </p>
-                    </div>
-
-                    
+                    {gallery_property_array.map((val, index) => {
+                      return (
+                        <div key={index} className="flex flex-col items-center justify-center gap-2 mt-2">
+                          <div className="text-xs text-[#fdb813]">
+                          {/* @ts-ignore */}
+                            {gallery_preview?.property?.[val?.name]}
+                          </div>
+                          <div className="flex gap-2">
+                            <label htmlFor={val.name}>
+                              <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer mr-0" />
+                              <input id={val.name} name={val.name} type="file" accept="image/*" onChange={handleGalleryMenuPropertyChange} className="hidden" />
+                            </label>  
+                            <p className="text-base text-secondaryLightColor">
+                              {val.title}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
 
                 <div className="col-span-12 px-2 mt-5 ">
-                  <p className="text-base font-semibold">Gallery Society </p>
+                  <p className="text-base font-semibold">Gallery Society</p>
                   <div className="flex flex-wrap gap-x-10 gap-y-5 mt-1">
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Elevation
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Common Areas
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Outdoor Amenities
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Indoor Amenities
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Neighbourhood
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <label htmlFor="inputTag">
-                        <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery"accept="image/*" onChange={handleGalleryMenuChange} className="hidden" />
-                      </label>
-
-                      <p className="text-base  text-secondaryLightColor">
-                        Walkthrough Video
-                      </p>
-                    </div>
+                    {gallery_society_array.map((val, index) => {
+                      return (
+                        <div key={index} className="flex flex-col items-center justify-center gap-2 mt-2">
+                          <div className="text-xs text-[#fdb813]">
+                          {/* @ts-ignore */}
+                            {gallery_preview?.society?.[val?.name]}
+                          </div>
+                          <div className="flex gap-2">
+                            <label htmlFor={val.name}>
+                              <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer mr-0" />
+                              <input id={val.name} name={val.name} type="file" accept={val.name === "walkthrough_video" ? "video/*" : "image/*"} onChange={handleGalleryMenuSocietyChange} className="hidden" />
+                            </label>  
+                            <p className="text-base text-secondaryLightColor">
+                              {val.title}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
 
@@ -2107,7 +2080,7 @@ const Details = () => {
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <label htmlFor="inputTag">
                         <ArrowUpTrayIcon className="h-5 w-5 cursor-pointer " />
-                        <input id="inputTag" type="file"  name="gallery" className="hidden" />
+                        <input id="inputTag" type="file" name="gallery" className="hidden" />
                       </label>
 
                       <p className="text-base  text-secondaryLightColor">

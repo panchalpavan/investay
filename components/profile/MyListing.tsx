@@ -13,10 +13,65 @@ import noImg from "../../public/assets/images/noImg1.svg";
 import { GrEdit } from "react-icons/gr";
 import validatePrice from "../../utilities/validatePrice";
 import Image from "next/image";
+import S3 from "aws-sdk/clients/s3";
+import { Buffer } from 'buffer';
 
 const MyListing = ({ listings }: any) => {
   const router = useRouter();
   const [open, setOpen] = useState(true);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const s3 = new S3({
+    apiVersion: '2006-03-01',
+    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESSKEY,
+    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRETKEY,
+    region: process.env.NEXT_PUBLIC_AWS_REGION,
+    signatureVersion: 'v4'
+  });
+
+    const getImageUrl = async (gallery: any) => {
+
+      console.log(gallery)
+      if (gallery) {
+        const src = await downloadFromS3(gallery?.property?.floor_plan);
+        return src || "";
+      } else {
+        return "";
+      }
+    };
+
+  if (process.env.NEXT_PUBLIC_NODE_ENV === 'production') {
+
+      useEffect(() => {
+          const downloadImages = async () => {
+            const promises = listings.map(async (property: any) => {
+              const url = await getImageUrl(property?.gallery);
+              return url;
+            });
+            const urls = await Promise.all(promises);
+            setImageUrls(urls);
+          };
+          downloadImages();
+        }, [listings]);
+  }
+
+  async function downloadFromS3(attachmentId: any) {
+    console.log(attachmentId);
+    console.log(process.env.NEXT_PUBLIC_AWS_BUCKETNAME);
+    const s3Params = {
+      Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME || "",
+      Key: attachmentId,
+    };
+
+    try {
+      const file = await s3.getObject(s3Params).promise();
+      const dataURI = `data:image/png;base64,${Buffer.from(file.Body).toString('base64')}`;
+      console.log(dataURI);
+      return dataURI;
+    } catch (error) {
+      return null;
+    }
+  }
 
   return (
     <div id="my-listing">
@@ -36,7 +91,7 @@ const MyListing = ({ listings }: any) => {
 
             <Disclosure.Panel className="mb-5">
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 md_link:grid-cols-3 2xl:grid-cols-3 gap-2 sm:gap-4">
-                {listings?.map((property: any) => {
+                {listings?.map((property: any, index: any) => {
                   const price = property?.bookingPricing.expectedPrice1
                     ? validatePrice(property?.bookingPricing.expectedPrice1)
                     : property?.bookingPricing.monthlyRental
@@ -59,20 +114,20 @@ const MyListing = ({ listings }: any) => {
                         </p>
 
                         <div className="w-full h-full flex justify-center items-center rounded-t-lg bg-[#DCDCDC]">
-                          {property?.gallery.length > 0 ? (
-                            <img
-                              src={`/uploads/${property?.gallery[0].filename}`}
-                              alt="Property"
-                              className="h-full w-full object-cover"
-                              // className="h-full w-full hover:scale-[1.05] cursor-pointer transition-all"
-                            />
-                          ) : (
-                            <Image
-                              src={noImg}
-                              alt="No Image"
-                              className="h-[7rem] w-[7rem]"
-                            />
-                          )}
+                          {process.env.NEXT_PUBLIC_NODE_ENV === 'development' ? (
+                              <>
+                              {property?.gallery[0]?.filename ? (
+                                  <img src={"/uploads/" + property?.gallery[0]?.filename}  alt="Property Image" className="h-full w-full object-fit" />
+                              ) : (
+                                  <img src={"/assets/images/noimageicon.png"}  alt="No Image" className="h-full w-full object-fit" />
+                                  
+                              )}
+                              </>
+                            ) : (
+                              <>
+                                  <img src={imageUrls[index]}  alt="No Image" className="h-full w-full object-fit" />
+                              </>
+                            )}
                         </div>
                       </div>
 

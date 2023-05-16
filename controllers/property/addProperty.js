@@ -16,7 +16,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const addProperty = (req, res) => {
+
+  // there will be no uploads for production, you can use upload.none() here
   upload.any()(req, res, async (err) => {
+    console.log(req.body.gallery)
   if (err instanceof multer.MulterError) {
       return res.status(400).send("File upload error: " + err.message);
     } else if (err) {
@@ -29,10 +32,14 @@ const addProperty = (req, res) => {
           let userDetails = await User.findOne({ id: userId });
           const ownerName = userDetails && `${userDetails.firstName} ${userDetails.lastName}`
           const ownerContact = userDetails && userDetails.mobile
-          const { propertyLocation, amenities, bookingPricing } = req.body;
+          const { propertyLocation, amenities, bookingPricing, property, society, user_images } = req.body;
           
           const amenity = JSON.parse(amenities);
           const booking = JSON.parse(bookingPricing);
+
+          const prpty = JSON.parse(property)
+          const scyt = JSON.parse(society)
+          const user_image = JSON.parse(user_images)
 
           await Location.create({ name: propertyLocation });
 
@@ -91,10 +98,11 @@ const addProperty = (req, res) => {
             ownerContact: ownerContact,
             amenities: amenity,
             bookingPricing: booking,
-            gallery: process.env.NEXT_PUBLIC_NODE_ENV === "development"
-            ? req.files.filter(file => file.fieldname === 'gallery')
-            : process.env.NEXT_PUBLIC_NODE_ENV === "production" ? req.body.gallery
-            : [],
+            gallery: {
+              property: {...prpty},
+              society: {...scyt},
+              user_images: user_image
+            },
             documents: {
               onlineRegistrationForm: onlineRegistrationForm,
               resaleForm: resaleForm,

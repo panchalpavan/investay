@@ -254,7 +254,137 @@ const PropertySchema = new Schema(
       type: String,
       default: null,
     },
-    gallery: {type : Array ,required:true ,  "default" : [] },
+    gallery: {
+      property: {
+        floor_plan: {
+          type: String,
+          default: null,
+        },
+        master_plan: {
+          type: String,
+          default: null,
+        },
+        entrance: {
+          type: String,
+          default: null,
+        },
+        living_room: {
+          type: String,
+          default: null,
+        },
+        bedroom: {
+          type: String,
+          default: null,
+        },
+        closet: {
+          type: String,
+          default: null,
+        },
+        kitchen: {
+          type: String,
+          default: null,
+        },
+        utility: {
+          type: String,
+          default: null,
+        },
+        bathroom: {
+          type: String,
+          default: null,
+        },
+        dining: {
+          type: String,
+          default: null,
+        },
+        terrace_area: {
+          type: String,
+          default: null,
+        },
+        balcony: {
+          type: String,
+          default: null,
+        },
+        pooja: {
+          type: String,
+          default: null,
+        },
+        servant_room: {
+          type: String,
+          default: null,
+        },
+        study: {
+          type: String,
+          default: null,
+        },
+        staircase: {
+          type: String,
+          default: null,
+        },
+        garden: {
+          type: String,
+          default: null,
+        },
+        garage: {
+          type: String,
+          default: null,
+        }
+      },
+      society: {
+        elevation: {
+          type: String,
+          default: null,
+        },
+        common_areas: {
+          type: String,
+          default: null,
+        },
+        outdoor_amenities: {
+          type: String,
+          default: null,
+        },
+        indoor_amenities: {
+          type: String,
+          default: null,
+        },
+        neighbourhood: {
+          type: String,
+          default: null,
+        },
+        walkthrough_video: {
+          type: String,
+          default: null,
+        },
+      },
+      user_images: {
+        type: Array, default: []
+      }
+    },
+    documents: {
+      onlineRegistrationForm: {
+        type: String,
+        default: null,
+      },
+      resaleForm: {
+        type: String,
+        default: null,
+      },
+      rentalForm: {
+        type: String,
+        default: null,
+      },
+      rentalAgreement: {
+        type: String,
+        default: null,
+      },
+      propertyInspectionReport: {
+        type: String,
+        default: null,
+      },
+      mou: {
+        type: String,
+        default: null,
+      },
+    },
       
       // [{
       //   category: {
@@ -535,32 +665,6 @@ const PropertySchema = new Schema(
       garbageChute: {
         type: Boolean,
         default: false,
-      },
-    },
-    documents: {
-      onlineRegistrationForm: {
-        type: String,
-        default: null,
-      },
-      resaleForm: {
-        type: String,
-        default: null,
-      },
-      rentalForm: {
-        type: String,
-        default: null,
-      },
-      rentalAgreement: {
-        type: String,
-        default: null,
-      },
-      propertyInspectionReport: {
-        type: String,
-        default: null,
-      },
-      mou: {
-        type: String,
-        default: null,
       },
     },
     tenancyStatus: {

@@ -52,15 +52,16 @@ const Index = ({ ...pageProps }) => {
         // console.log(response.property);
         setPropertyData(response.property);
         dispatch(setProperty(response.property));
-        const mydata = response.property.gallery.filter(
-          (item: any) => item.subCategory !== "walkthroughVideo"
-        );
-        setMyGallery(mydata);
+        // const mydata = response.property.gallery.filter(
+        //   (item: any) => item.subCategory !== "walkthroughVideo"
+        // );
+        // setMyGallery(mydata);
         setGallery(response.property.gallery);
         setIsLoading(false);
       }
     } catch (error: any) {
-      router.replace("/property");
+      // router.replace("/property");
+      console.log('ERRR', error)
     }
   };
 
