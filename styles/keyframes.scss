@@ -1,0 +1,153 @@
+@keyframes rotation {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: -40deg;
+  }
+}
+
+@keyframes animation1 {
+  to {
+    transform: rotate(180deg);
+  }
+}
+@keyframes animation2 {
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes removeAnimation {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes charFlip {
+  from {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(-1, 1);
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+  }
+  to {
+    transform: scale(1, 1);
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes paraShow {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@keyframes headset-animation {
+  0% {
+    transform: translateY(0px);
+  }
+  30% {
+    transform: translateY(-10px) rotate(20deg);
+  }
+  70% {
+    transform: translateY(10px) rotate(-20deg);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes bell-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(10deg) translateY(-10px);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-10deg) translateY(0px);
+  }
+  70% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes ring-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(20deg);
+  }
+  35% {
+    transform: rotate(-20deg);
+  }
+  40% {
+    transform: rotate(20deg);
+  }
+  45% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  55% {
+    transform: rotate(-20deg);
+  }
+  60% {
+    transform: rotate(20deg);
+  }
+  70% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes beat-animation {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes wallet-animation {
+  0% {
+    transform: translateY(0px);
+  }
+  40% {
+    transform: translateY(-15px) scale(-1, 1);
+  }
+  60% {
+    transform: translateY(-15px) scale(1, 1);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

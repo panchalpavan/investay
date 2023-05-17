@@ -1,0 +1,650 @@
+// ! First Circle Aanimtions-----------------
+
+.circle-1 {
+  animation: paraShow 0.5s ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.circle1-border {
+  animation: rotation 0.9s ease-out 0.5s;
+}
+
+.circle1-quarter-left-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+.circle1-quarter-right-rectangle {
+  animation: animation2 0.15s forwards linear 0.95s;
+}
+
+.circle1-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.flip1-1 {
+  animation: charFlip 0.3s linear 0.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-2 {
+  animation: charFlip 0.3s linear 0.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-3 {
+  animation: charFlip 0.3s linear 0.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-4 {
+  animation: charFlip 0.3s linear 0.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-5 {
+  animation: charFlip 0.3s linear 0.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-6 {
+  animation: charFlip 0.3s linear 1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-7 {
+  animation: charFlip 0.3s linear 1.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-8 {
+  animation: charFlip 0.3s linear 1.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-9 {
+  animation: charFlip 0.3s linear 1.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-10 {
+  animation: charFlip 0.3s linear 1.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-11 {
+  animation: charFlip 0.3s linear 1.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-12 {
+  animation: charFlip 0.3s linear 1.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-13 {
+  animation: charFlip 0.3s linear 1.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-14 {
+  animation: charFlip 0.3s linear 1.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-15 {
+  animation: charFlip 0.3s linear 1.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-16 {
+  animation: charFlip 0.3s linear 2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-17 {
+  animation: charFlip 0.3s linear 2.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-18 {
+  animation: charFlip 0.3s linear 2.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-19 {
+  animation: charFlip 0.3s linear 2.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-20 {
+  animation: charFlip 0.3s linear 2.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip1-21 {
+  animation: charFlip 0.3s linear 2.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.para1 {
+  animation: paraShow 1s ease-in 2.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+// ! ===============================================
+// ! Second Circle Aanimations======================
+.circle-2 {
+  animation: paraShow 0.5s ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.circle2-border {
+  animation: rotation 1s ease-out 3.2s;
+}
+
+.circle2-quarter-left-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+.circle2-quarter-right-rectangle {
+  animation: animation2 0.15s forwards linear 0.95s;
+}
+
+.circle2-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.flip2-1 {
+  animation: charFlip 0.3s linear 3.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-2 {
+  animation: charFlip 0.3s linear 3.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-3 {
+  animation: charFlip 0.3s linear 3.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-4 {
+  animation: charFlip 0.3s linear 3.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-5 {
+  animation: charFlip 0.3s linear 3.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-6 {
+  animation: charFlip 0.3s linear 3.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-7 {
+  animation: charFlip 0.3s linear 3.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-8 {
+  animation: charFlip 0.3s linear 3.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-9 {
+  animation: charFlip 0.3s linear 4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-10 {
+  animation: charFlip 0.3s linear 4.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-11 {
+  animation: charFlip 0.3s linear 4.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-12 {
+  animation: charFlip 0.3s linear 4.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-13 {
+  animation: charFlip 0.3s linear 4.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-14 {
+  animation: charFlip 0.3s linear 4.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-15 {
+  animation: charFlip 0.3s linear 4.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-16 {
+  animation: charFlip 0.3s linear 4.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip2-17 {
+  animation: charFlip 0.3s linear 4.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.para2 {
+  animation: paraShow 1s ease-in 4.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+// ! ===============================================
+// ! Third Circle Aanimations======================
+.circle-3 {
+  animation: paraShow 0.5s ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.circle3-border {
+  animation: rotation 1s ease-out 5.5s;
+}
+
+.circle3-quarter-left-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+.circle3-quarter-right-rectangle {
+  animation: animation2 0.15s forwards linear 0.95s;
+}
+
+.circle3-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.flip3-1 {
+  animation: charFlip 0.3s linear 5.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-2 {
+  animation: charFlip 0.3s linear 5.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-3 {
+  animation: charFlip 0.3s linear 5.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-4 {
+  animation: charFlip 0.3s linear 5.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-5 {
+  animation: charFlip 0.3s linear 5.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-6 {
+  animation: charFlip 0.3s linear 6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-7 {
+  animation: charFlip 0.3s linear 6.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-8 {
+  animation: charFlip 0.3s linear 6.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-9 {
+  animation: charFlip 0.3s linear 6.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-10 {
+  animation: charFlip 0.3s linear 6.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-11 {
+  animation: charFlip 0.3s linear 6.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-12 {
+  animation: charFlip 0.3s linear 6.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-13 {
+  animation: charFlip 0.3s linear 6.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip3-14 {
+  animation: charFlip 0.3s linear 6.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.para3 {
+  animation: paraShow 1s ease-in 6.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+// ! ===============================================
+// ! Forth Circle Aanimations======================
+.circle-4 {
+  animation: paraShow 0.5s ease-in;
+  animation: paraShow 0.5s ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.circle4-border {
+  animation: rotation 1s ease-out 7.5s;
+}
+
+.circle4-quarter-left-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+.circle4-quarter-right-rectangle {
+  animation: animation2 0.15s forwards linear 0.95s;
+}
+
+.circle4-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+
+.flip4-1 {
+  animation: charFlip 0.3s linear 7.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-2 {
+  animation: charFlip 0.3s linear 7.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-3 {
+  animation: charFlip 0.3s linear 7.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-4 {
+  animation: charFlip 0.3s linear 7.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-5 {
+  animation: charFlip 0.3s linear 7.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-6 {
+  animation: charFlip 0.3s linear 8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-7 {
+  animation: charFlip 0.3s linear 8.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-8 {
+  animation: charFlip 0.3s linear 8.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-9 {
+  animation: charFlip 0.3s linear 8.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-10 {
+  animation: charFlip 0.3s linear 8.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-11 {
+  animation: charFlip 0.3s linear 8.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-12 {
+  animation: charFlip 0.3s linear 8.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-13 {
+  animation: charFlip 0.3s linear 8.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip4-14 {
+  animation: charFlip 0.3s linear 8.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.flip4-15 {
+  animation: charFlip 0.3s linear 8.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+
+.para4 {
+  animation: paraShow 1s ease-in 8.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+// ! ===============================================
+// ! Forth Circle Aanimations======================
+
+.circle-5 {
+  animation: paraShow 0.5s ease-in;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.circle5-border {
+  animation: rotation 1s ease-out 9.5s;
+}
+
+.circle5-quarter-left-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.15s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.8s;
+}
+
+.circle5-quarter-right-rectangle {
+  animation: animation2 0.15s forwards linear 0.95s;
+}
+
+.circle5-rectangle {
+  animation-name: animation1;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: 0.5s;
+}
+.flip5-1 {
+  animation: charFlip 0.3s linear 9.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-2 {
+  animation: charFlip 0.3s linear 9.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-3 {
+  animation: charFlip 0.3s linear 9.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-4 {
+  animation: charFlip 0.3s linear 9.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-5 {
+  animation: charFlip 0.3s linear 9.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-6 {
+  animation: charFlip 0.3s linear 10s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-7 {
+  animation: charFlip 0.3s linear 10.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-8 {
+  animation: charFlip 0.3s linear 10.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-9 {
+  animation: charFlip 0.3s linear 10.3s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-10 {
+  animation: charFlip 0.3s linear 10.4s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-11 {
+  animation: charFlip 0.3s linear 10.5s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-12 {
+  animation: charFlip 0.3s linear 10.6s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-13 {
+  animation: charFlip 0.3s linear 10.7s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-14 {
+  animation: charFlip 0.3s linear 10.8s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-15 {
+  animation: charFlip 0.3s linear 10.9s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-16 {
+  animation: charFlip 0.3s linear 11s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-17 {
+  animation: charFlip 0.3s linear 11.1s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.flip5-18 {
+  animation: charFlip 0.3s linear 11.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+}
+.para5 {
+  animation: paraShow 1s ease-in 11.2s;
+  animation-fill-mode: forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+// ! ===============================================
+
+.headset-animation {
+  animation: headset-animation 1.5s linear infinite 1.5s;
+}
+
+.bell-animation {
+  animation: bell-animation 2.5s cubic-bezier(0.4, 0.11, 0.61, 0.93) infinite
+    1.5s;
+}
+
+.ring-animation {
+  animation: ring-animation 1.5s linear infinite 1.5s;
+}
+
+.agent-animation {
+  animation: beat-animation 1.5s cubic-bezier(0.4, 0.11, 0.61, 0.93) infinite
+    1.5s;
+}
+.wallet-animation {
+  animation: wallet-animation 1.5s cubic-bezier(0.4, 0.11, 0.61, 0.93) infinite
+    1.5s;
+}
