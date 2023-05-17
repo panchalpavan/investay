@@ -28,13 +28,7 @@ const DashboardListings = ({ allProperties }: any) => {
     const [properties, setProperties] = useState([]) as any
     const [imageUrls, setImageUrls] = useState([]);
 
-    console.log("PROPERTIES", properties)
-
-    console.log(imageUrls)
-
     const getImageUrl = async (gallery: any) => {
-
-        console.log(gallery)
         if (gallery) {
           const src = await downloadFromS3(gallery?.property?.floor_plan);
           return src || "";
@@ -59,8 +53,6 @@ const DashboardListings = ({ allProperties }: any) => {
     }
 
     async function downloadFromS3(attachmentId: any) {
-        console.log(attachmentId);
-        console.log(process.env.NEXT_PUBLIC_AWS_BUCKETNAME);
         const s3Params = {
           Bucket: process.env.NEXT_PUBLIC_AWS_BUCKETNAME || "",
           Key: attachmentId,
@@ -69,7 +61,6 @@ const DashboardListings = ({ allProperties }: any) => {
         try {
           const file = await s3.getObject(s3Params).promise();
           const dataURI = `data:image/png;base64,${Buffer.from(file.Body).toString('base64')}`;
-          console.log(dataURI);
           return dataURI;
         } catch (error) {
           return null;
@@ -263,7 +254,6 @@ const DashboardListings = ({ allProperties }: any) => {
 
                 </div>
                 {properties && properties?.map((property: any, index: any) => {
-                    console.log(property)
                     return (
                         <div key={index} className={property?.propertyActivateStatus && property?.propertyActivateStatus === 'deactivated'
                         ? `xl:col-span-4 md:col-span-6  col-span-12 h-full p-6 mx-3 shadow-lg flex flex-col rounded-lg overflow-hidden`

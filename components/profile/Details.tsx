@@ -363,11 +363,11 @@ const Details = () => {
   });
 
   useEffect(() => {
-    console.log('galleries', gallery)
-    console.log('gallery_preview', gallery_preview)
+    // console.log('galleries', gallery)
+    // console.log('gallery_preview', gallery_preview)
     // console.log('overview', overview)
     // console.log('projectDetails', projectDetails)
-    console.log('documents', documents)
+    // console.log('documents', documents)
     // console.log('unitDetails', unitDetails)
     // console.log('amenities', amenities)
     // console.log('tenancyInformation', tenancyInformation)
@@ -387,6 +387,8 @@ const Details = () => {
     const { name, value } = e.target;
     setUnitDetails({ ...unitDetails, [name]: value });
   };
+
+  // setting gallery and gallery previews
   const handleGalleryMenuPropertyChange = (e: any) => {
     const {name, files} = e.target
     const image = files[0];
@@ -404,12 +406,10 @@ const Details = () => {
   const handleGalleryMenuChange = (e: any) => {
     const {name, files} = e.target
 
-    console.log(name, files)
     const image = files[0];
     setGallery({...gallery, property: image})
   };
   const handlePropertyDocsChange = (e: any) => {
-    console.log(e.target.name, e.target.files)
     const doc = e.target.files[0] ;
     setDocuments({...documents, [e.target.name]: doc})
   };
@@ -419,7 +419,6 @@ const Details = () => {
   };
 
   const onSubmitHandler = async (e: any) => {
-    console.log('GALLERY', gallery)
     e.preventDefault();
     dispatch(
       setProperty({
@@ -434,9 +433,8 @@ const Details = () => {
     );
     if(router.route.includes("profile")){
       router.push("/profile/seller-owner/booking-pricing");
-    }else{
+    } else{
       router.push("/admin/booking-and-pricing");
-
     }
   };
 

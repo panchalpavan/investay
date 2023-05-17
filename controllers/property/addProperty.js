@@ -16,11 +16,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const addProperty = (req, res) => {
-
   // there will be no uploads for production, you can use upload.none() here
   upload.any()(req, res, async (err) => {
-    console.log(req.body.gallery)
-  if (err instanceof multer.MulterError) {
+    if (err instanceof multer.MulterError) {
       return res.status(400).send("File upload error: " + err.message);
     } else if (err) {
       return res.status(500).send("Internal server error");
@@ -50,6 +48,7 @@ const addProperty = (req, res) => {
           let propertyInspectionReport = ""
           let mou = ""
 
+          // uploading documents
           if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
             onlineRegistrationForm = req.body.onlineRegistrationForm
             resaleForm = req.body.resaleForm

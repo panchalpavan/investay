@@ -75,9 +75,10 @@ const BookingPricing = () => {
     const { name, value } = e.target;
     setBookingPricing({ ...bookingPricing, [name]: value });
   };
-
+  
+  // AWS S3 upload
   const uploadToS3 = async (file: any) => {
-    console.log(file)
+    // console.log(file)
 
     // @ts-ignore
     const fileType = encodeURIComponent(file.type);
@@ -86,14 +87,16 @@ const BookingPricing = () => {
     const { uploadUrl, key } = data;
     await axios.put(uploadUrl, file)
     .then((req) => {
-      console.log('AWS SUCCESS', req)
+      // console.log('AWS SUCCESS', req)
     })
     .catch((err) => {
-      console.log('AWS ERR', err)
+      // console.log('AWS ERR', err)
     });
     return key;
   }
 
+
+  // uploading documents to AWS S3 - /.pdf
   async function uploadToS3AndAppendToFormData(data: any, formData: any) {
     if (data.onlineRegistrationForm) {
       const awskey = await uploadToS3(data.onlineRegistrationForm)
@@ -125,16 +128,14 @@ const BookingPricing = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log("PROPERTY", property)
       const data = { ...property, bookingPricing };
 
       const formData = new FormData();
 
       if (data.gallery) {
-        console.log(data.gallery)
         if (process.env.NEXT_PUBLIC_NODE_ENV === "development") {
 
-          // this will not work for development environment
+          // this will not work for development environment, local upload for new gallery object yet to be coded
           let galleryObj = {...data.gallery};
           for (const [key, value] of Object.entries(data.gallery)) {
             if (value) {
@@ -152,17 +153,7 @@ const BookingPricing = () => {
           formData.set('society', JSON.stringify(galleryObj.society));
           formData.set('user_images', JSON.stringify(galleryObj.user_images));
         } else if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
-          // gallery array logic
-          // await Promise.all(
-          //   data?.gallery.map(async (img: any) => {
-          //     const key = await uploadToS3(img)
-          //     console.log("KEY", key)
-          //     if (key) imgs.push(key)
-          //   })
-          // )
-          // formData.append("gallery", imgs)
-
-          // gallery defined object logic
+          // creating a copy of gallery obj
           let galleryObj = {...data.gallery};
           for (const [key, value] of Object.entries(data.gallery)) {
             if (value) {
@@ -176,6 +167,8 @@ const BookingPricing = () => {
               }
             }
           }
+
+          // setting this seperately because JSON.stringy not working as expected on deeply nested objects
           formData.set('property', JSON.stringify(galleryObj.property));
           formData.set('society', JSON.stringify(galleryObj.society));
           formData.set('user_images', JSON.stringify(galleryObj.user_images));
